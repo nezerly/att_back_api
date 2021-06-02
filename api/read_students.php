@@ -9,7 +9,7 @@ include_once('../core/initialize.php');
 
 //instantiate post
 
-$post = new Attendance($db);
+$post = new Student($db);
 
 
 //return print_r('ad');
@@ -26,12 +26,10 @@ if ($num > 0) {
         extract($row);
         $post_item = array(
             'id' => $id,
-            'barcode_event' => $barcode_event,
-            'day_date' => $day_date,
             'student_id' => $student_id,
             'student_name' => $student_name,
             'student_class' => $student_class,
-            'timestamp' => $timestamp
+            'created_at' => $created_at
         );
 
         array_push($post_arr['data'], $post_item);

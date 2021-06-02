@@ -9,13 +9,19 @@ include_once('../core/initialize.php');
 
 //instantiate post
 
-$post = new Attendance($db);
+$att = new Attendance($db);
 
 
+$date = isset($_GET['date']) ? $_GET['date'] : die();
+
+$date = date("Y-m-d", strtotime($date));
+
+$att->day_date = $date;
 //return print_r('ad');
-$result = $post->read();
+$result = $att->readByDate();
 
-$num = $post->count_all();
+
+$num = $att->count_all();
 
 
 if ($num > 0) {

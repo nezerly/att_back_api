@@ -9,14 +9,16 @@ include_once('../core/initialize.php');
 
 //instantiate post
 
-$post = new Attendance($db);
+$att = new Attendance($db);
 
 
+$att->student_id = isset($_GET['student_id']) ? $_GET['student_id'] : die();
 //return print_r('ad');
-$result = $post->read();
+$result = $att->scanByStudent();
 
-$num = $post->count_all();
+$num = $att->count();
 
+//return $result;
 
 if ($num > 0) {
     $post_arr = array();
@@ -25,13 +27,11 @@ if ($num > 0) {
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $post_item = array(
-            'id' => $id,
             'barcode_event' => $barcode_event,
-            'day_date' => $day_date,
             'student_id' => $student_id,
+            'timestamp' => $timestamp,
             'student_name' => $student_name,
-            'student_class' => $student_class,
-            'timestamp' => $timestamp
+            'student_class' => $student_class
         );
 
         array_push($post_arr['data'], $post_item);

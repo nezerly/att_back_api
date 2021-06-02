@@ -9,28 +9,28 @@ include_once('../core/initialize.php');
 
 //instantiate post
 
-$post = new Attendance($db);
+$att = new Attendance($db);
 
 
-//return print_r('ad');
-$result = $post->read();
-
-$num = $post->count_all();
+$result = $att->readAllVision();
 
 
-if ($num > 0) {
+$total = $result->rowCount();
+
+
+if ($total > 0) {
+
     $post_arr = array();
     $post_arr['data'] = array();
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $post_item = array(
-            'id' => $id,
-            'barcode_event' => $barcode_event,
-            'day_date' => $day_date,
             'student_id' => $student_id,
             'student_name' => $student_name,
             'student_class' => $student_class,
+//            'barcode_event' => $barcode_event,
+//            'day_date' => $day_date,
             'timestamp' => $timestamp
         );
 

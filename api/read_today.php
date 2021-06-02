@@ -9,16 +9,24 @@ include_once('../core/initialize.php');
 
 //instantiate post
 
-$post = new Attendance($db);
+$att = new Attendance($db);
 
 
-//return print_r('ad');
-$result = $post->read();
+date_default_timezone_set('GMT');
+$tdate = date("Y-m-d");
 
-$num = $post->count_all();
+$att->day_date = $tdate;
+
+//return print_r($tdate);
+
+$result = $att->readByDate();
 
 
-if ($num > 0) {
+$total = $att->countByDate();
+
+
+if ($total > 0) {
+
     $post_arr = array();
     $post_arr['data'] = array();
 
@@ -29,8 +37,6 @@ if ($num > 0) {
             'barcode_event' => $barcode_event,
             'day_date' => $day_date,
             'student_id' => $student_id,
-            'student_name' => $student_name,
-            'student_class' => $student_class,
             'timestamp' => $timestamp
         );
 

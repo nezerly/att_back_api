@@ -9,13 +9,15 @@ include_once('../core/initialize.php');
 
 //instantiate post
 
-$post = new Attendance($db);
+$att = new Attendance($db);
 
 
+$att->student_id = isset($_GET['id']) ? $_GET['id'] : die();
 //return print_r('ad');
-$result = $post->read();
+$result = $att->readByIndex();
 
-$num = $post->count_all();
+
+$num = $att->count_all();
 
 
 if ($num > 0) {
